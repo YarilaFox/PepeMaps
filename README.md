@@ -5,6 +5,8 @@ An interactive Minecraft world map viewer with raster tiles, markers, and share 
 
 This repository is a standalone extraction of PepeMaps. It includes the original map tiles currently used by the viewer, not synthetic demo maps. It is prepared for private review; public release and asset permissions are still pending.
 
+Design in Figma: https://www.figma.com/design/hZs9Gun9dYuosSadFUANpj/Design-PepeMaps-and-PepeGuessr?node-id=0-1&t=vAPk6Gn9ELMzfDq2-1
+
 ## Run locally
 
 Requires Node.js 20 or newer.
