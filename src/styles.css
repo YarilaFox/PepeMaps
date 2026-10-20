@@ -1,0 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Unbounded:wght@400;500;600&display=swap");
+@import "./styles/pepe-maps.css";
+
+:root {
+  font-family: "Manrope", sans-serif;
+  color: #f5f5ef;
+  background: #050806;
+}
+
+* { box-sizing: border-box; }
+html, body, #root { width: 100%; min-height: 100%; margin: 0; }
+button, input { font: inherit; }

@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "tiles": [
+    {
+      "id": "0_0",
+      "x": -512,
+      "z": -1024,
+      "width": 1024,
+      "height": 2048,
+      "src": "/maps/trade/preview-0_0.webp"
+    }
+  ]
+}

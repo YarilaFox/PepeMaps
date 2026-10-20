@@ -1,0 +1,182 @@
+{
+  "version": 1,
+  "generatedAt": "2026-10-05T16:15:24.689Z",
+  "tileSize": 1024,
+  "baseImage": "",
+  "bounds": {
+    "minX": -2048,
+    "minZ": -2560,
+    "width": 4096,
+    "height": 5120
+  },
+  "focus": {
+    "x": 0.5,
+    "y": 0.5,
+    "tileIds": [
+      "2_2",
+      "3_2"
+    ]
+  },
+  "tiles": [
+    {
+      "id": "1_0",
+      "x": -2048,
+      "z": -2560,
+      "src": "/maps/trade/tiles/end/1_0_x-2048_z-2560.png",
+      "srcWebp": "",
+      "srcPng": "/maps/trade/tiles/end/1_0_x-2048_z-2560.png"
+    },
+    {
+      "id": "1_1",
+      "x": -2048,
+      "z": -1536,
+      "src": "/maps/trade/tiles/end/1_1_x-2048_z-1536.png",
+      "srcWebp": "",
+      "srcPng": "/maps/trade/tiles/end/1_1_x-2048_z-1536.png"
+    },
+    {
+      "id": "1_2",
+      "x": -2048,
+      "z": -512,
+      "src": "/maps/trade/tiles/end/1_2_x-2048_z-512.png",
+      "srcWebp": "",
+      "srcPng": "/maps/trade/tiles/end/1_2_x-2048_z-512.png"
+    },
+    {
+      "id": "1_3",
+      "x": -2048,
+      "z": 512,
+      "src": "/maps/trade/tiles/end/1_3_x-2048_z512.png",
+      "srcWebp": "",
+      "srcPng": "/maps/trade/tiles/end/1_3_x-2048_z512.png"
+    },
+    {
+      "id": "1_4",
+      "x": -2048,
+      "z": 1536,
+      "src": "/maps/trade/tiles/end/1_4_x-2048_z1536.png",
+      "srcWebp": "",
+      "srcPng": "/maps/trade/tiles/end/1_4_x-2048_z1536.png"
+    },
+    {
+      "id": "2_0",
+      "x": -1024,
+      "z": -2560,
+      "src": "/maps/trade/tiles/end/2_0_x-1024_z-2560.png",
+      "srcWebp": "",
+      "srcPng": "/maps/trade/tiles/end/2_0_x-1024_z-2560.png"
+    },
+    {
+      "id": "2_1",
+      "x": -1024,
+      "z": -1536,
+      "src": "/maps/trade/tiles/end/2_1_x-1024_z-1536.png",
+      "srcWebp": "",
+      "srcPng": "/maps/trade/tiles/end/2_1_x-1024_z-1536.png"
+    },
+    {
+      "id": "2_2",
+      "x": -1024,
+      "z": -512,
+      "src": "/maps/trade/tiles/end/2_2_x-1024_z-512.png",
+      "srcWebp": "",
+      "srcPng": "/maps/trade/tiles/end/2_2_x-1024_z-512.png"
+    },
+    {
+      "id": "2_3",
+      "x": -1024,
+      "z": 512,
+      "src": "/maps/trade/tiles/end/2_3_x-1024_z512.png",
+      "srcWebp": "",
+      "srcPng": "/maps/trade/tiles/end/2_3_x-1024_z512.png"
+    },
+    {
+      "id": "2_4",
+      "x": -1024,
+      "z": 1536,
+      "src": "/maps/trade/tiles/end/2_4_x-1024_z1536.png",
+      "srcWebp": "",
+      "srcPng": "/maps/trade/tiles/end/2_4_x-1024_z1536.png"
+    },
+    {
+      "id": "3_0",
+      "x": 0,
+      "z": -2560,
+      "src": "/maps/trade/tiles/end/3_0_x0_z-2560.png",
+      "srcWebp": "",
+      "srcPng": "/maps/trade/tiles/end/3_0_x0_z-2560.png"
+    },
+    {
+      "id": "3_1",
+      "x": 0,
+      "z": -1536,
+      "src": "/maps/trade/tiles/end/3_1_x0_z-1536.png",
+      "srcWebp": "",
+      "srcPng": "/maps/trade/tiles/end/3_1_x0_z-1536.png"
+    },
+    {
+      "id": "3_2",
+      "x": 0,
+      "z": -512,
+      "src": "/maps/trade/tiles/end/3_2_x0_z-512.png",
+      "srcWebp": "",
+      "srcPng": "/maps/trade/tiles/end/3_2_x0_z-512.png"
+    },
+    {
+      "id": "3_3",
+      "x": 0,
+      "z": 512,
+      "src": "/maps/trade/tiles/end/3_3_x0_z512.png",
+      "srcWebp": "",
+      "srcPng": "/maps/trade/tiles/end/3_3_x0_z512.png"
+    },
+    {
+      "id": "3_4",
+      "x": 0,
+      "z": 1536,
+      "src": "/maps/trade/tiles/end/3_4_x0_z1536.png",
+      "srcWebp": "",
+      "srcPng": "/maps/trade/tiles/end/3_4_x0_z1536.png"
+    },
+    {
+      "id": "4_0",
+      "x": 1024,
+      "z": -2560,
+      "src": "/maps/trade/tiles/end/4_0_x1024_z-2560.png",
+      "srcWebp": "",
+      "srcPng": "/maps/trade/tiles/end/4_0_x1024_z-2560.png"
+    },
+    {
+      "id": "4_1",
+      "x": 1024,
+      "z": -1536,
+      "src": "/maps/trade/tiles/end/4_1_x1024_z-1536.png",
+      "srcWebp": "",
+      "srcPng": "/maps/trade/tiles/end/4_1_x1024_z-1536.png"
+    },
+    {
+      "id": "4_2",
+      "x": 1024,
+      "z": -512,
+      "src": "/maps/trade/tiles/end/4_2_x1024_z-512.png",
+      "srcWebp": "",
+      "srcPng": "/maps/trade/tiles/end/4_2_x1024_z-512.png"
+    },
+    {
+      "id": "4_3",
+      "x": 1024,
+      "z": 512,
+      "src": "/maps/trade/tiles/end/4_3_x1024_z512.png",
+      "srcWebp": "",
+      "srcPng": "/maps/trade/tiles/end/4_3_x1024_z512.png"
+    },
+    {
+      "id": "4_4",
+      "x": 1024,
+      "z": 1536,
+      "src": "/maps/trade/tiles/end/4_4_x1024_z1536.png",
+      "srcWebp": "",
+      "srcPng": "/maps/trade/tiles/end/4_4_x1024_z1536.png"
+    }
+  ]
+}

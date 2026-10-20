@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "generatedAt": "2026-10-05T16:15:22.604Z",
+  "tileSize": 1024,
+  "baseImage": "",
+  "bounds": {
+    "minX": -512,
+    "minZ": -1024,
+    "width": 1024,
+    "height": 2048
+  },
+  "focus": {
+    "x": 0.5,
+    "y": 0.5,
+    "tileIds": [
+      "2_7",
+      "2_8"
+    ]
+  },
+  "tiles": [
+    {
+      "id": "2_7",
+      "x": -512,
+      "z": -1024,
+      "src": "/maps/trade/tiles/overworld/2_7_x-512_z-1024.png",
+      "srcWebp": "",
+      "srcPng": "/maps/trade/tiles/overworld/2_7_x-512_z-1024.png"
+    },
+    {
+      "id": "2_8",
+      "x": -512,
+      "z": 0,
+      "src": "/maps/trade/tiles/overworld/2_8_x-512_z0.png",
+      "srcWebp": "",
+      "srcPng": "/maps/trade/tiles/overworld/2_8_x-512_z0.png"
+    }
+  ]
+}

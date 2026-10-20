@@ -1,0 +1,9 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "rewrites": [
+    { "source": "/api/share-image", "destination": "/api/share?mode=image" },
+    { "source": "/s/:world/:dimension/:x/:z", "destination": "/api/share" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}

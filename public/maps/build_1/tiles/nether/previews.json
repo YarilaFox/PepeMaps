@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "tiles": [
+    {
+      "id": "0_0",
+      "x": -1536,
+      "z": -1536,
+      "width": 2048,
+      "height": 2048,
+      "src": "/maps/build_1/tiles/nether/preview-0_0.webp"
+    },
+    {
+      "id": "0_1",
+      "x": -1536,
+      "z": 512,
+      "width": 2048,
+      "height": 1024,
+      "src": "/maps/build_1/tiles/nether/preview-0_1.webp"
+    },
+    {
+      "id": "1_0",
+      "x": 512,
+      "z": -1536,
+      "width": 1024,
+      "height": 2048,
+      "src": "/maps/build_1/tiles/nether/preview-1_0.webp"
+    },
+    {
+      "id": "1_1",
+      "x": 512,
+      "z": 512,
+      "width": 1024,
+      "height": 1024,
+      "src": "/maps/build_1/tiles/nether/preview-1_1.webp"
+    }
+  ]
+}

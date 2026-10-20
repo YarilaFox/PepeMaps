@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "world": "build_1",
+  "updatedAt": "2026-05-06T13:23:03.579Z",
+  "items": [
+    {
+      "id": "spawn_mp1",
+      "name": "Спавн МП1",
+      "world": "build_1",
+      "dimension": "overworld",
+      "type": "portal",
+      "x": 0,
+      "z": 0,
+      "weight": 10,
+      "description": "Центральный спавн средневековой зоны",
+      "icon": "",
+      "color": ""
+    },
+    {
+      "id": "lor_zone",
+      "name": "Зона Лора",
+      "world": "build_1",
+      "dimension": "overworld",
+      "type": "project",
+      "x": 4667,
+      "z": 893,
+      "weight": 9,
+      "description": "Холм и жилая зона Лора",
+      "icon": "",
+      "color": ""
+    },
+    {
+      "id": "bunker",
+      "name": "Бункер",
+      "world": "build_1",
+      "dimension": "overworld",
+      "type": "project",
+      "x": 4735,
+      "z": 1528,
+      "weight": 4,
+      "description": "Куб из случайных блоков",
+      "icon": "",
+      "color": ""
+    }
+  ]
+}

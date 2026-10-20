@@ -1,0 +1,93 @@
+{
+  "version": 1,
+  "generatedAt": "2026-10-05T18:04:10.821Z",
+  "tileSize": 1024,
+  "baseImage": "",
+  "bounds": {
+    "minX": -1536,
+    "minZ": -1536,
+    "width": 3072,
+    "height": 3072
+  },
+  "focus": {
+    "x": 0.5,
+    "y": 0.5,
+    "tileIds": [
+      "1_1"
+    ]
+  },
+  "tiles": [
+    {
+      "id": "0_0",
+      "x": -1536,
+      "z": -1536,
+      "src": "/maps/farms/tiles/nether/0_0_x-1536_z-1536.png",
+      "srcWebp": "",
+      "srcPng": "/maps/farms/tiles/nether/0_0_x-1536_z-1536.png"
+    },
+    {
+      "id": "0_1",
+      "x": -1536,
+      "z": -512,
+      "src": "/maps/farms/tiles/nether/0_1_x-1536_z-512.png",
+      "srcWebp": "",
+      "srcPng": "/maps/farms/tiles/nether/0_1_x-1536_z-512.png"
+    },
+    {
+      "id": "0_2",
+      "x": -1536,
+      "z": 512,
+      "src": "/maps/farms/tiles/nether/0_2_x-1536_z512.png",
+      "srcWebp": "",
+      "srcPng": "/maps/farms/tiles/nether/0_2_x-1536_z512.png"
+    },
+    {
+      "id": "1_0",
+      "x": -512,
+      "z": -1536,
+      "src": "/maps/farms/tiles/nether/1_0_x-512_z-1536.png",
+      "srcWebp": "",
+      "srcPng": "/maps/farms/tiles/nether/1_0_x-512_z-1536.png"
+    },
+    {
+      "id": "1_1",
+      "x": -512,
+      "z": -512,
+      "src": "/maps/farms/tiles/nether/1_1_x-512_z-512.png",
+      "srcWebp": "",
+      "srcPng": "/maps/farms/tiles/nether/1_1_x-512_z-512.png"
+    },
+    {
+      "id": "1_2",
+      "x": -512,
+      "z": 512,
+      "src": "/maps/farms/tiles/nether/1_2_x-512_z512.png",
+      "srcWebp": "",
+      "srcPng": "/maps/farms/tiles/nether/1_2_x-512_z512.png"
+    },
+    {
+      "id": "2_0",
+      "x": 512,
+      "z": -1536,
+      "src": "/maps/farms/tiles/nether/2_0_x512_z-1536.png",
+      "srcWebp": "",
+      "srcPng": "/maps/farms/tiles/nether/2_0_x512_z-1536.png"
+    },
+    {
+      "id": "2_1",
+      "x": 512,
+      "z": -512,
+      "src": "/maps/farms/tiles/nether/2_1_x512_z-512.png",
+      "srcWebp": "",
+      "srcPng": "/maps/farms/tiles/nether/2_1_x512_z-512.png"
+    },
+    {
+      "id": "2_2",
+      "x": 512,
+      "z": 512,
+      "src": "/maps/farms/tiles/nether/2_2_x512_z512.png",
+      "srcWebp": "",
+      "srcPng": "/maps/farms/tiles/nether/2_2_x512_z512.png"
+    }
+  ]
+}

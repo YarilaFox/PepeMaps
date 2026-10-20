@@ -1,0 +1,120 @@
+{
+  "version": 1,
+  "generatedAt": "2026-10-06T10:47:52.839Z",
+  "tileSize": 1024,
+  "baseImage": "",
+  "bounds": {
+    "minX": -2048,
+    "minZ": -1024,
+    "width": 4096,
+    "height": 3072
+  },
+  "focus": {
+    "x": 0.5,
+    "y": 0.333333,
+    "tileIds": [
+      "3_1",
+      "3_2",
+      "4_1",
+      "4_2"
+    ]
+  },
+  "tiles": [
+    {
+      "id": "2_1",
+      "x": -2048,
+      "z": -1024,
+      "src": "/maps/build_2/tiles/nether/2_1_x-2048_z-1024.png",
+      "srcWebp": "",
+      "srcPng": "/maps/build_2/tiles/nether/2_1_x-2048_z-1024.png"
+    },
+    {
+      "id": "2_2",
+      "x": -2048,
+      "z": 0,
+      "src": "/maps/build_2/tiles/nether/2_2_x-2048_z0.png",
+      "srcWebp": "",
+      "srcPng": "/maps/build_2/tiles/nether/2_2_x-2048_z0.png"
+    },
+    {
+      "id": "2_3",
+      "x": -2048,
+      "z": 1024,
+      "src": "/maps/build_2/tiles/nether/2_3_x-2048_z1024.png",
+      "srcWebp": "",
+      "srcPng": "/maps/build_2/tiles/nether/2_3_x-2048_z1024.png"
+    },
+    {
+      "id": "3_1",
+      "x": -1024,
+      "z": -1024,
+      "src": "/maps/build_2/tiles/nether/3_1_x-1024_z-1024.png",
+      "srcWebp": "",
+      "srcPng": "/maps/build_2/tiles/nether/3_1_x-1024_z-1024.png"
+    },
+    {
+      "id": "3_2",
+      "x": -1024,
+      "z": 0,
+      "src": "/maps/build_2/tiles/nether/3_2_x-1024_z0.png",
+      "srcWebp": "",
+      "srcPng": "/maps/build_2/tiles/nether/3_2_x-1024_z0.png"
+    },
+    {
+      "id": "3_3",
+      "x": -1024,
+      "z": 1024,
+      "src": "/maps/build_2/tiles/nether/3_3_x-1024_z1024.png",
+      "srcWebp": "",
+      "srcPng": "/maps/build_2/tiles/nether/3_3_x-1024_z1024.png"
+    },
+    {
+      "id": "4_1",
+      "x": 0,
+      "z": -1024,
+      "src": "/maps/build_2/tiles/nether/4_1_x0_z-1024.png",
+      "srcWebp": "",
+      "srcPng": "/maps/build_2/tiles/nether/4_1_x0_z-1024.png"
+    },
+    {
+      "id": "4_2",
+      "x": 0,
+      "z": 0,
+      "src": "/maps/build_2/tiles/nether/4_2_x0_z0.png",
+      "srcWebp": "",
+      "srcPng": "/maps/build_2/tiles/nether/4_2_x0_z0.png"
+    },
+    {
+      "id": "4_3",
+      "x": 0,
+      "z": 1024,
+      "src": "/maps/build_2/tiles/nether/4_3_x0_z1024.png",
+      "srcWebp": "",
+      "srcPng": "/maps/build_2/tiles/nether/4_3_x0_z1024.png"
+    },
+    {
+      "id": "5_1",
+      "x": 1024,
+      "z": -1024,
+      "src": "/maps/build_2/tiles/nether/5_1_x1024_z-1024.png",
+      "srcWebp": "",
+      "srcPng": "/maps/build_2/tiles/nether/5_1_x1024_z-1024.png"
+    },
+    {
+      "id": "5_2",
+      "x": 1024,
+      "z": 0,
+      "src": "/maps/build_2/tiles/nether/5_2_x1024_z0.png",
+      "srcWebp": "",
+      "srcPng": "/maps/build_2/tiles/nether/5_2_x1024_z0.png"
+    },
+    {
+      "id": "5_3",
+      "x": 1024,
+      "z": 1024,
+      "src": "/maps/build_2/tiles/nether/5_3_x1024_z1024.png",
+      "srcWebp": "",
+      "srcPng": "/maps/build_2/tiles/nether/5_3_x1024_z1024.png"
+    }
+  ]
+}

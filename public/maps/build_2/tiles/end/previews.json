@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "tiles": [
+    {
+      "id": "0_0",
+      "x": -2048,
+      "z": -2560,
+      "width": 2048,
+      "height": 2048,
+      "src": "/maps/build_2/tiles/end/preview-0_0.webp"
+    },
+    {
+      "id": "0_1",
+      "x": -2048,
+      "z": -512,
+      "width": 2048,
+      "height": 2048,
+      "src": "/maps/build_2/tiles/end/preview-0_1.webp"
+    },
+    {
+      "id": "0_2",
+      "x": -2048,
+      "z": 1536,
+      "width": 2048,
+      "height": 1024,
+      "src": "/maps/build_2/tiles/end/preview-0_2.webp"
+    },
+    {
+      "id": "1_0",
+      "x": 0,
+      "z": -2560,
+      "width": 2048,
+      "height": 2048,
+      "src": "/maps/build_2/tiles/end/preview-1_0.webp"
+    },
+    {
+      "id": "1_1",
+      "x": 0,
+      "z": -512,
+      "width": 2048,
+      "height": 2048,
+      "src": "/maps/build_2/tiles/end/preview-1_1.webp"
+    },
+    {
+      "id": "1_2",
+      "x": 0,
+      "z": 1536,
+      "width": 2048,
+      "height": 1024,
+      "src": "/maps/build_2/tiles/end/preview-1_2.webp"
+    }
+  ]
+}

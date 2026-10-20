@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "name": "PepeMaps",
+  "season": "10",
+  "defaultWorldId": "build_2",
+  "defaultDimensionId": "overworld",
+  "discord": "@yarila",
+  "help": { "title": "Помогаем обновлять карту PepeLand!" },
+  "worlds": [
+    {
+      "id": "build_1",
+      "label": "МП1",
+      "shortLabel": "МП1",
+      "status": "active",
+      "manifestPath": "/maps/build_1/manifest.json",
+      "markersPath": "/maps/build_1/markers.json",
+      "dimensions": [
+        { "id": "overworld", "label": "Верхний", "enabled": true },
+        { "id": "nether", "label": "Ад", "enabled": true, "manifestPath": "/maps/build_1/tiles/nether/manifest.json" },
+        { "id": "end", "label": "Энд", "enabled": true, "manifestPath": "/maps/build_1/tiles/end/manifest.json" }
+      ]
+    },
+    {
+      "id": "build_2",
+      "label": "МП2",
+      "shortLabel": "МП2",
+      "status": "active",
+      "manifestPath": "/maps/build_2/manifest.json",
+      "markersPath": "/maps/build_2/markers.json",
+      "dimensions": [
+        { "id": "overworld", "label": "Верхний", "enabled": true },
+        { "id": "nether", "label": "Ад", "enabled": true, "manifestPath": "/maps/build_2/tiles/nether/manifest.json" },
+        { "id": "end", "label": "Энд", "enabled": true, "manifestPath": "/maps/build_2/tiles/end/manifest.json" },
+        { "id": "pale", "label": "Бледный", "enabled": true, "manifestPath": "/maps/build_2/tiles/pale/manifest.json" }
+      ]
+    },
+    {
+      "id": "farms",
+      "label": "Фермы",
+      "shortLabel": "Ферм",
+      "status": "active",
+      "manifestPath": "/maps/farms/manifest.json",
+      "markersPath": "/maps/farms/markers.json",
+      "dimensions": [
+        { "id": "overworld", "label": "Верхний", "enabled": true },
+        { "id": "nether", "label": "Ад", "enabled": true, "manifestPath": "/maps/farms/tiles/nether/manifest.json" },
+        { "id": "end", "label": "Энд", "enabled": false }
+      ]
+    },
+    {
+      "id": "trade",
+      "label": "ТЗ",
+      "shortLabel": "ТЗ",
+      "status": "active",
+      "manifestPath": "/maps/trade/manifest.json",
+      "markersPath": "/maps/trade/markers.json",
+      "dimensions": [
+        { "id": "overworld", "label": "Верхний", "enabled": true },
+        { "id": "nether", "label": "Ад", "enabled": false },
+        { "id": "end", "label": "Энд", "enabled": true, "manifestPath": "/maps/trade/tiles/end/manifest.json" }
+      ]
+    }
+  ]
+}
