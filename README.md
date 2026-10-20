@@ -1,4 +1,5 @@
 # PepeMaps
+<img width="2243" height="1173" alt="К3арта" src="https://github.com/user-attachments/assets/485d6b09-bbc0-42fa-a87d-b6a16cf8d8b9" />
 
 An interactive Minecraft world map viewer with raster tiles, markers, and share previews.
 
@@ -38,6 +39,10 @@ npm run maps:manifest -- --tiles-dir public/maps/<world>/tiles/overworld --out p
 ## Deployment
 
 The static viewer builds with Vite. `vercel.json` configures the optional `/s/...` share pages and `/api/share-image` preview endpoint. For preview links on another host, set the variables shown in `.env.example`. Do not commit real secrets or a private world save.
+
+## From me
+
+Честно, работая за PepeMaps я явно получил много опыта в работе с дизайном, и разработкой сайтов, было очень много проблем которых я в итоге решил, но почему я публикую его? Потому что считаю что я устал заниматься им. И не вижу смысла держать его закрытым. Если вы хотите что-то делать то делайте! Я не против, на самом деле это было бы классно, я не получил с этого проекта ни гроша, что кстати и было одной из причин этого.
 
 ## License
 
