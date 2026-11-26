@@ -1,36 +1,34 @@
 ﻿import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import L from "leaflet"
 import "leaflet/dist/leaflet.css"
+import { getMapImageModes } from "./map-lod.js"
 
 const SEARCH_RESULTS_LIMIT = 8
-const TILE_VIEW_PADDING_PX = 256
-// Zoom hysteresis avoids repeatedly mounting full-resolution images at one threshold.
-const DETAIL_ZOOM_ENTER = 2.6
-const DETAIL_ZOOM_EXIT = 2.4
-const PREVIEW_ZOOM_ENTER = 1.65
-const PREVIEW_ZOOM_EXIT = 1.45
+const TILE_VIEW_PADDING_PX = 128
 const MAX_TILE_REQUESTS = 4
 const MAX_PREVIEW_REQUESTS = 2
 const MARKER_VIEW_PADDING_PX = 160
 const MAP_VIEW_COOKIE_NAME = "pepe_maps_view"
 const MAP_VIEW_COOKIE_MAX_AGE = 60 * 60 * 24 * 30
 const DEFAULT_CATALOG = {
-  season: "10",
-  defaultWorldId: "build_2",
+  season: "11",
+  defaultWorldId: "build_1",
   defaultDimensionId: "overworld",
-  discord: "@yarila",
   worlds: []
 }
 
+function getAvailableWorldId(candidates, worlds) {
+  return candidates.map(readString).find((id) => worlds?.some((world) => world.id === id && world.status === "active")) || ""
+}
+
 function getWorldIdFromPathname(pathname, worlds) {
-  const validWorldIds = Array.isArray(worlds) ? worlds.map((world) => readString(world?.id)).filter(Boolean) : []
   const normalizedPath = readString(pathname).replace(/^\/+|\/+$/g, "")
   if (!normalizedPath) {
     return ""
   }
 
   const [candidate] = normalizedPath.split("/")
-  return validWorldIds.includes(candidate) ? candidate : ""
+  return getAvailableWorldId([candidate], worlds)
 }
 
 function clampNumeric(value, min, max, fallback = min) {
@@ -97,6 +95,7 @@ function buildTileMeta(manifest) {
   if (!tiles.length || !Number.isFinite(minX) || !Number.isFinite(minZ) || !Number.isFinite(width) || !Number.isFinite(height)) {
     return {
       enabled: false,
+      tileSize: 0,
       width: 0,
       height: 0,
       minX: 0,
@@ -134,6 +133,7 @@ function buildTileMeta(manifest) {
 
   return {
     enabled: preparedTiles.length > 0,
+    tileSize: safeTileSize,
     width,
     height,
     minX,
@@ -240,13 +240,14 @@ function toLeafletBounds(tile, worldMeta) {
   )
 }
 
+function isTileInRect(tile, rect) {
+  return tile.right >= rect.left && tile.left <= rect.right && tile.bottom >= rect.top && tile.top <= rect.bottom
+}
+
 function reconcileImageLayers({ map, worldMeta, tiles, visibleRect, layerGroup, entriesRef, queueRef, pane, className, maxRequests }) {
   const entries = entriesRef.current
   const queue = queueRef.current
-  const visibleTiles = visibleRect ? tiles.filter((tile) => (
-    tile.right >= visibleRect.left && tile.left <= visibleRect.right &&
-    tile.bottom >= visibleRect.top && tile.top <= visibleRect.bottom
-  )) : []
+  const visibleTiles = visibleRect ? tiles.filter((tile) => isTileInRect(tile, visibleRect)) : []
   const nextKeys = new Set(visibleTiles.map((tile) => tile.key))
 
   entries.forEach((entry, key) => {
@@ -708,11 +709,12 @@ function getExpandedViewportRect(map, worldMeta, paddingPx = 0) {
   }
 
   const bounds = map.getBounds()
+  const worldPadding = paddingPx / map.getZoomScale(map.getZoom(), 0)
   return {
-    left: clampNumeric(bounds.getWest() - paddingPx, 0, worldMeta.width, 0),
-    right: clampNumeric(bounds.getEast() + paddingPx, 0, worldMeta.width, worldMeta.width),
-    top: clampNumeric(worldMeta.height - bounds.getNorth() - paddingPx, 0, worldMeta.height, 0),
-    bottom: clampNumeric(worldMeta.height - bounds.getSouth() + paddingPx, 0, worldMeta.height, worldMeta.height)
+    left: clampNumeric(bounds.getWest() - worldPadding, 0, worldMeta.width, 0),
+    right: clampNumeric(bounds.getEast() + worldPadding, 0, worldMeta.width, worldMeta.width),
+    top: clampNumeric(worldMeta.height - bounds.getNorth() - worldPadding, 0, worldMeta.height, 0),
+    bottom: clampNumeric(worldMeta.height - bounds.getSouth() + worldPadding, 0, worldMeta.height, worldMeta.height)
   }
 }
 
@@ -765,7 +767,6 @@ export default function PepeMapsSite() {
   const [mapError, setMapError] = useState("")
   const [showMarkers, setShowMarkers] = useState(true)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isHelpOpen, setIsHelpOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
   const [zoomPercent, setZoomPercent] = useState(100)
   const [viewportToken, setViewportToken] = useState(0)
@@ -787,7 +788,7 @@ export default function PepeMapsSite() {
   const tileMeta = useMemo(() => buildTileMeta(manifest), [manifest])
   const previewTiles = useMemo(() => buildPreviewTiles(manifest, tileMeta), [manifest, tileMeta])
   const worldMeta = useMemo(() => createWorldMeta(tileMeta, manifest), [manifest, tileMeta])
-  const overviewUrl = getOverviewUrl(activeDimension?.manifestPath || activeWorld?.manifestPath, manifest?.generatedAt)
+  const overviewUrl = getOverviewUrl(activeDimension?.manifestPath || activeWorld?.manifestPath, manifest?.assetVersion || manifest?.generatedAt)
   const worldMarkers = useMemo(() => {
     if (!worldMeta) {
       return []
@@ -879,10 +880,14 @@ export default function PepeMapsSite() {
 
   useEffect(() => {
     const onPopState = () => {
-      const worldId = getWorldIdFromPathname(window.location.pathname, catalog.worlds)
+      const pathWorldId = getWorldIdFromPathname(window.location.pathname, catalog.worlds)
+      const worldId = getAvailableWorldId([pathWorldId, catalog.defaultWorldId], catalog.worlds)
       const minecraftUrlState = readMinecraftUrlState(window.location)
       urlMinecraftStateRef.current = minecraftUrlState
       if (worldId) {
+        if (!pathWorldId && window.location.pathname !== "/") {
+          window.history.replaceState({}, "", `/${worldId}`)
+        }
         setActiveWorldId(worldId)
         const nextWorld = (catalog.worlds || []).find((world) => world.id === worldId) || null
         const nextDimensionId =
@@ -934,7 +939,15 @@ export default function PepeMapsSite() {
         urlMinecraftStateRef.current = minecraftUrlState
         const urlWorldId = getWorldIdFromPathname(window.location.pathname, nextCatalog.worlds)
         const defaultWorldId = nextCatalog.defaultWorldId || DEFAULT_CATALOG.defaultWorldId
-        const nextWorldId = readString(urlWorldId) || readString(minecraftUrlState?.world) || readString(lastSavedView?.worldId) || defaultWorldId
+        const worlds = Array.isArray(nextCatalog.worlds) ? nextCatalog.worlds : []
+        const nextWorldId = getAvailableWorldId(
+          [urlWorldId, minecraftUrlState?.world, lastSavedView?.worldId, defaultWorldId, ...worlds.map((world) => world.id)],
+          worlds
+        )
+
+        if (nextWorldId && !urlWorldId && window.location.pathname !== "/") {
+          window.history.replaceState({}, "", `/${nextWorldId}`)
+        }
 
         setActiveWorldId(nextWorldId)
         const initialWorld = Array.isArray(nextCatalog.worlds)
@@ -1008,7 +1021,12 @@ export default function PepeMapsSite() {
             ? markerPayload.items
             : []
 
-        setManifest({ ...manifestPayload, previewTiles: previewPayload.tiles })
+        const assetVersion = readString(previewPayload?.assetVersion) || manifestPayload.generatedAt
+        const versionedPreviews = (Array.isArray(previewPayload?.tiles) ? previewPayload.tiles : []).map((tile) => ({
+          ...tile,
+          src: `${tile.src}?v=${encodeURIComponent(assetVersion)}`
+        }))
+        setManifest({ ...manifestPayload, assetVersion, previewTiles: versionedPreviews })
         setMarkers(markerItems.filter((marker) => readString(marker?.dimension) === activeDimensionId))
       } catch (error) {
         if (!cancelled) {
@@ -1350,16 +1368,18 @@ export default function PepeMapsSite() {
       return
     }
 
-    const zoomDelta = map.getZoom() - fitZoomRef.current
-    const usePreview = previewTiles.length > 0 && (previewModeRef.current
-      ? zoomDelta >= PREVIEW_ZOOM_EXIT
-      : zoomDelta >= PREVIEW_ZOOM_ENTER)
-    const useDetail = failedOverviewUrl === overviewUrl || (previewTiles.length === 0 && zoomDelta >= PREVIEW_ZOOM_ENTER) || (detailModeRef.current
-        ? zoomDelta >= DETAIL_ZOOM_EXIT
-        : zoomDelta >= DETAIL_ZOOM_ENTER)
+    const visibleRect = getExpandedViewportRect(map, worldMeta, TILE_VIEW_PADDING_PX)
+    const { preview: usePreview, detail: useDetail } = getMapImageModes({
+      tileScreenPixels: tileMeta.tileSize * map.getZoomScale(map.getZoom(), 0),
+      pixelRatio: window.devicePixelRatio,
+      hasPreviews: previewTiles.length > 0,
+      visibleDetailTiles: tileMeta.tiles.filter((tile) => isTileInRect(tile, visibleRect)).length,
+      previewActive: previewModeRef.current,
+      detailActive: detailModeRef.current,
+      overviewFailed: failedOverviewUrl === overviewUrl
+    })
     previewModeRef.current = usePreview
     detailModeRef.current = useDetail
-    const visibleRect = getExpandedViewportRect(map, worldMeta, TILE_VIEW_PADDING_PX)
     reconcileImageLayers({
       map, worldMeta, tiles: previewTiles, visibleRect: usePreview ? visibleRect : null,
       layerGroup: previewLayerGroup, entriesRef: previewEntriesRef, queueRef: previewQueueRef,
@@ -1648,7 +1668,7 @@ export default function PepeMapsSite() {
               PepeMaps
             </span>
             <span className="pepe-brand-meta">
-              <span className="pepe-ice-shimmer">{catalog.season || "10"} Сезон</span> / {statusWorldLabel}
+              <span className="pepe-season-shimmer">{catalog.season || "11"} Сезон</span> / {statusWorldLabel}
             </span>
             <span className="pepe-brand-note">
               Данный проект не является официальной частью сети серверов{" "}
@@ -1657,38 +1677,6 @@ export default function PepeMapsSite() {
           </span>
         </div>
       </div>
-
-      {catalog.help && <div className={`pepe-help-dock${isHelpOpen ? " is-open" : ""}`}>
-        <button
-          type="button"
-          className="pepe-icon-btn pepe-help-btn"
-          onClick={() => setIsHelpOpen((previous) => !previous)}
-          aria-label={isHelpOpen ? "Закрыть блок помощи проекту" : "Открыть блок помощи проекту"}
-          aria-expanded={isHelpOpen}
-        >
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path
-              d="M12 20.4 10.55 19.08C5.4 14.36 2 11.25 2 7.45 2 4.34 4.42 2 7.5 2c1.74 0 3.41.81 4.5 2.09C13.09 2.81 14.76 2 16.5 2 19.58 2 22 4.34 22 7.45c0 3.8-3.4 6.91-8.55 11.64z"
-              fill="currentColor"
-            />
-          </svg>
-        </button>
-
-        {isHelpOpen && (
-          <div className="pepe-help-card">
-            <span className="pepe-help-kicker">{catalog.help.title}</span>
-            <p>Ищем людей, которые:</p>
-            <ul className="pepe-help-list">
-              <li>знают карту сервера</li>
-              <li>любят исследовать</li>
-              <li>хотят помогать проекту</li>
-            </ul>
-            <p>
-              Писать в Discord <b>{catalog.discord}</b>
-            </p>
-          </div>
-        )}
-      </div>}
 
       <div className="pepe-zoom-controls">
         <button type="button" onClick={zoomIn} aria-label="Приблизить">+</button>
@@ -1762,7 +1750,7 @@ export default function PepeMapsSite() {
         {isMenuOpen && (
           <div className="pepe-filter-panel">
             <div className="pepe-filter-group">
-              <span className="pepe-filter-label"><span className="pepe-ice-shimmer">Законченные</span> миры:</span>
+              <span className="pepe-filter-label">Миры:</span>
               <div className="pepe-chip-row">
                 {catalog.worlds.map((world) => (
                   <button
@@ -1804,18 +1792,32 @@ export default function PepeMapsSite() {
               </label>
             </div>
 
-            {catalog.discord && <p className="pepe-filter-discord">
-              Связь Discord: <span>{catalog.discord}</span>
-            </p>}
+            {Array.isArray(catalog.contributors) && catalog.contributors.length > 0 && (
+              <div className="pepe-filter-contributors">
+                <ul className="pepe-contributor-list" role="list">
+                  {catalog.contributors.map((contributor) => (
+                    <li key={contributor.name}>
+                      <img src={contributor.avatar} alt={contributor.name} width="20" height="20" />
+                      <span className="pepe-contributor-name" aria-hidden="true">{contributor.name}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         )}
       </div>
 
       {(mapLoading || mapError || catalogError) && (
-        <div className="pepe-status-card">
+        <div className={`pepe-status-card${!mapLoading && (mapError || catalogError) ? " is-error" : ""}`} role={!mapLoading && (mapError || catalogError) ? "alert" : undefined}>
           {mapLoading && <p>Загрузка карты...</p>}
           {!mapLoading && mapError && <p>{mapError}</p>}
           {!mapLoading && !mapError && catalogError && <p>{catalogError}</p>}
+          {!mapLoading && (mapError || catalogError) && (
+            <button type="button" className="pepe-status-retry" onClick={() => window.location.reload()}>
+              Перезагрузить карту
+            </button>
+          )}
         </div>
       )}
 
