@@ -3,7 +3,7 @@
 
 An interactive Minecraft world map viewer with raster tiles, markers, and share previews.
 
-This repository is a standalone extraction of PepeMaps. It includes the original map tiles currently used by the viewer, not synthetic demo maps. It is prepared for private review; public release and asset permissions are still pending.
+This repository is a standalone extraction of PepeMaps. It includes original map tiles, not synthetic demo maps. The source-code license does not automatically cover map imagery or other third-party assets; see [ASSETS.md](ASSETS.md).
 
 Design in Figma: https://www.figma.com/design/hZs9Gun9dYuosSadFUANpj/Design-PepeMaps-and-PepeGuessr?node-id=0-1&t=vAPk6Gn9ELMzfDq2-1
 
@@ -51,4 +51,4 @@ The static viewer builds with Vite. `vercel.json` configures the optional `/s/..
 
 ## License
 
-The PepeMaps application source code is offered under [Apache License 2.0](LICENSE). Copies and modified distributions must retain the license and relevant attribution from [NOTICE](NOTICE). This does not automatically license the map imagery, Minecraft worlds, player builds, server branding, or third-party content. See [ASSETS.md](ASSETS.md). Public release has not yet been performed.
+The PepeMaps application source code is offered under [Apache License 2.0](LICENSE). Copies and modified distributions must retain the license and relevant attribution from [NOTICE](NOTICE). This does not automatically license the map imagery, Minecraft worlds, player builds, server branding, or third-party content. See [ASSETS.md](ASSETS.md).
