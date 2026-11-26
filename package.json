@@ -10,7 +10,8 @@
     "preview": "vite preview --host 127.0.0.1",
     "test": "node --test tests/*.test.mjs",
     "maps:overview": "node scripts/generate-map-overviews.mjs",
-    "maps:manifest": "node scripts/generate-map-manifest.mjs"
+    "maps:manifest": "node scripts/generate-map-manifest.mjs",
+    "markers:icon": "node scripts/format-marker-icon.mjs"
   },
   "dependencies": {
     "leaflet": "^1.9.4",

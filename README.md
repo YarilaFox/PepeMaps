@@ -41,6 +41,16 @@ npm run maps:manifest -- --tiles-dir public/maps/<world>/tiles/overworld --out p
 
 Use `npm run maps:overview -- --world build_1 --world trade` to refresh only those worlds.
 
+### Custom marker icons
+
+The `icon` field in a marker's JSON accepts a complete SVG as a string. To copy a ready-to-paste JSON field from an SVG already in the Windows clipboard, run this from the project directory:
+
+```powershell
+Get-Clipboard -Raw | npm.cmd run --silent markers:icon | Set-Clipboard
+```
+
+Replace the existing `"icon": ""` field with the result, keeping any trailing comma. For an SVG file, run `npm run --silent markers:icon -- icon.svg` to print the field instead. Custom SVGs render as images, so use self-contained graphics.
+
 ## Deployment
 
 The static viewer builds with Vite. `vercel.json` configures the optional `/s/...` share pages and `/api/share-image` preview endpoint. For preview links on another host, set the variables shown in `.env.example`. Do not commit real secrets or a private world save.

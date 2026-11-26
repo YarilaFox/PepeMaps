@@ -108,3 +108,12 @@ test("contributor heads are local images", async () => {
     assert.equal(metadata.height, 128)
   }
 })
+
+test("contributor badges match the requested roles", () => {
+  assert.deepEqual(catalog.contributors.map(({ name, badge }) => [name, badge]), [
+    ["YarilaFox", "crown"],
+    ["Bratik17078", "pepemaps"],
+    ["haaampter", "marker"],
+    ["green_and_white", "pepemaps"]
+  ])
+})
