@@ -47,6 +47,40 @@ for (const [worldId, tileCount, minX, minZ, size] of [
   })
 }
 
+test("trade correction changes only the masked area of the central tile", async () => {
+  const root = path.join(publicDir, "maps/trade/season11")
+  const manifest = JSON.parse(await readFile(path.join(root, "manifest.json"), "utf8"))
+  const tile = manifest.tiles.find(({ x, z }) => x === -512 && z === -512)
+  assert.equal(tile.src, tile.srcPng)
+  const rgb = (file) => sharp(file).removeAlpha().raw().toBuffer()
+  const [original, corrected, mask] = await Promise.all([
+    rgb(path.join(root, "tiles/overworld/1_1_x-512_z-512.png")),
+    rgb(path.join(publicDir, tile.srcPng.slice(1))),
+    sharp(path.resolve("map-corrections/trade-season11/x-64_z-64.png"))
+      .removeAlpha().raw().toBuffer({ resolveWithObject: true })
+  ])
+  const maskSize = 64
+  const offset = -64 - tile.x
+  const stride = manifest.tileSize * 3
+  assert.equal(tile.x, tile.z)
+  assert.deepEqual([mask.info.width, mask.info.height, mask.info.channels], [maskSize, maskSize, 3])
+  assert.ok(!original.equals(corrected))
+  for (let row = 0; row < manifest.tileSize; row++) {
+    const start = row * stride
+    const end = start + stride
+    if (row < offset || row >= offset + maskSize) {
+      assert.ok(corrected.subarray(start, end).equals(original.subarray(start, end)), `row ${row}`)
+      continue
+    }
+    const left = start + offset * 3
+    const right = left + maskSize * 3
+    const maskStart = (row - offset) * maskSize * 3
+    assert.ok(corrected.subarray(start, left).equals(original.subarray(start, left)), `left of mask, row ${row}`)
+    assert.ok(corrected.subarray(right, end).equals(original.subarray(right, end)), `right of mask, row ${row}`)
+    assert.ok(corrected.subarray(left, right).equals(mask.data.subarray(maskStart, maskStart + maskSize * 3)), `mask row ${row}`)
+  }
+})
+
 test("Nether and End are unavailable in every world", () => {
   for (const world of catalog.worlds) {
     for (const dimension of world.dimensions) {
