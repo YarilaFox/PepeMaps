@@ -1,49 +1,50 @@
 {
   "version": 1,
   "name": "PepeMaps",
-  "season": "10",
-  "defaultWorldId": "build_2",
+  "season": "11",
+  "defaultWorldId": "build_1",
   "defaultDimensionId": "overworld",
-  "discord": "@yarila",
-  "help": { "title": "Помогаем обновлять карту PepeLand!" },
+  "contributors": [
+    { "name": "YarilaFox", "avatar": "/contributors/yarilafox.png" },
+    { "name": "Bratik17078", "avatar": "/contributors/bratik17078.png" }
+  ],
   "worlds": [
     {
       "id": "build_1",
       "label": "МП1",
       "shortLabel": "МП1",
       "status": "active",
-      "manifestPath": "/maps/build_1/manifest.json",
-      "markersPath": "/maps/build_1/markers.json",
+      "manifestPath": "/maps/build_1/season11/manifest.json",
+      "markersPath": "/maps/build_1/season11/markers.json",
       "dimensions": [
         { "id": "overworld", "label": "Верхний", "enabled": true },
-        { "id": "nether", "label": "Ад", "enabled": true, "manifestPath": "/maps/build_1/tiles/nether/manifest.json" },
-        { "id": "end", "label": "Энд", "enabled": true, "manifestPath": "/maps/build_1/tiles/end/manifest.json" }
+        { "id": "nether", "label": "Ад", "enabled": false, "manifestPath": "/maps/build_1/tiles/nether/manifest.json" },
+        { "id": "end", "label": "Энд", "enabled": false, "manifestPath": "/maps/build_1/tiles/end/manifest.json" }
       ]
     },
     {
       "id": "build_2",
       "label": "МП2",
       "shortLabel": "МП2",
-      "status": "active",
+      "status": "unavailable",
       "manifestPath": "/maps/build_2/manifest.json",
       "markersPath": "/maps/build_2/markers.json",
       "dimensions": [
         { "id": "overworld", "label": "Верхний", "enabled": true },
-        { "id": "nether", "label": "Ад", "enabled": true, "manifestPath": "/maps/build_2/tiles/nether/manifest.json" },
-        { "id": "end", "label": "Энд", "enabled": true, "manifestPath": "/maps/build_2/tiles/end/manifest.json" },
-        { "id": "pale", "label": "Бледный", "enabled": true, "manifestPath": "/maps/build_2/tiles/pale/manifest.json" }
+        { "id": "nether", "label": "Ад", "enabled": false, "manifestPath": "/maps/build_2/tiles/nether/manifest.json" },
+        { "id": "end", "label": "Энд", "enabled": false, "manifestPath": "/maps/build_2/tiles/end/manifest.json" }
       ]
     },
     {
       "id": "farms",
       "label": "Фермы",
       "shortLabel": "Ферм",
-      "status": "active",
+      "status": "unavailable",
       "manifestPath": "/maps/farms/manifest.json",
       "markersPath": "/maps/farms/markers.json",
       "dimensions": [
         { "id": "overworld", "label": "Верхний", "enabled": true },
-        { "id": "nether", "label": "Ад", "enabled": true, "manifestPath": "/maps/farms/tiles/nether/manifest.json" },
+        { "id": "nether", "label": "Ад", "enabled": false, "manifestPath": "/maps/farms/tiles/nether/manifest.json" },
         { "id": "end", "label": "Энд", "enabled": false }
       ]
     },
@@ -52,12 +53,12 @@
       "label": "ТЗ",
       "shortLabel": "ТЗ",
       "status": "active",
-      "manifestPath": "/maps/trade/manifest.json",
-      "markersPath": "/maps/trade/markers.json",
+      "manifestPath": "/maps/trade/season11/manifest.json",
+      "markersPath": "/maps/trade/season11/markers.json",
       "dimensions": [
         { "id": "overworld", "label": "Верхний", "enabled": true },
         { "id": "nether", "label": "Ад", "enabled": false },
-        { "id": "end", "label": "Энд", "enabled": true, "manifestPath": "/maps/trade/tiles/end/manifest.json" }
+        { "id": "end", "label": "Энд", "enabled": false, "manifestPath": "/maps/trade/tiles/end/manifest.json" }
       ]
     }
   ]

@@ -1,10 +1,11 @@
 import fs from "node:fs/promises"
 import path from "node:path"
 import sharp from "sharp"
+import { OVERVIEW_TILE_PIXELS, PREVIEW_TILE_PIXELS } from "../src/map-lod.js"
 
 const PUBLIC_DIR = path.resolve("public")
-const THUMB_PX = 256
-const PREVIEW_TILE_PX = 512
+const THUMB_PX = OVERVIEW_TILE_PIXELS
+const PREVIEW_TILE_PX = PREVIEW_TILE_PIXELS
 const PREVIEW_GROUP_SIZE = 2
 
 function publicFile(url) {
@@ -69,7 +70,7 @@ async function generateOverview(manifestUrl) {
     const tile = manifest.tiles[index]
     const left = Math.round((Number(tile.x) - Number(manifest.bounds.minX)) / tileSize) * THUMB_PX
     const top = Math.round((Number(tile.z) - Number(manifest.bounds.minZ)) / tileSize) * THUMB_PX
-    const input = await sharp(sources[index]).resize(THUMB_PX, THUMB_PX, { fit: "fill" }).webp({ quality: 82 }).toBuffer()
+    const input = await sharp(sources[index]).resize(THUMB_PX, THUMB_PX, { fit: "fill" }).webp({ quality: 88 }).toBuffer()
     overlays.push({ input, left, top })
   }
 
@@ -77,7 +78,7 @@ async function generateOverview(manifestUrl) {
   try {
     await sharp({ create: { width, height, channels: 4, background: "#030403" } })
       .composite(overlays)
-      .webp({ quality: 82, effort: 4 })
+      .webp({ quality: 88, effort: 4 })
       .toFile(temporaryFile)
     await replaceGeneratedFile(temporaryFile, overviewFile)
   } finally {
@@ -110,13 +111,17 @@ async function generatePreviews(manifestUrl) {
   for (const group of groups.values()) {
     const groupColumns = Math.min(PREVIEW_GROUP_SIZE, columns - group.groupColumn * PREVIEW_GROUP_SIZE)
     const groupRows = Math.min(PREVIEW_GROUP_SIZE, rows - group.groupRow * PREVIEW_GROUP_SIZE)
-    const outputFile = path.join(directory, `preview-${group.key}.webp`)
+    const previewName = `preview-${group.key}-${PREVIEW_TILE_PX}.webp`
+    const outputFile = path.join(directory, previewName)
     const sources = await Promise.all(group.tiles.map(({ tile }) => existingSource(tile)))
     const latestInputTime = Math.max((await fs.stat(manifestFile)).mtimeMs,
       ...await Promise.all(sources.map(async (file) => (await fs.stat(file)).mtimeMs)))
     const outputTime = await fs.stat(outputFile).then((stat) => stat.mtimeMs).catch(() => 0)
+    const outputSize = await sharp(outputFile).metadata().catch(() => null)
+    const previewWidth = groupColumns * PREVIEW_TILE_PX
+    const previewHeight = groupRows * PREVIEW_TILE_PX
 
-    if (outputTime < latestInputTime) {
+    if (outputTime < latestInputTime || outputSize?.width !== previewWidth || outputSize?.height !== previewHeight) {
       const overlays = []
       for (let index = 0; index < group.tiles.length; index += 1) {
         const { column, row } = group.tiles[index]
@@ -130,11 +135,11 @@ async function generatePreviews(manifestUrl) {
       const temporaryFile = `${outputFile}.tmp.webp`
       try {
         await sharp({ create: {
-          width: groupColumns * PREVIEW_TILE_PX,
-          height: groupRows * PREVIEW_TILE_PX,
+          width: previewWidth,
+          height: previewHeight,
           channels: 4,
           background: "#030403"
-        } }).composite(overlays).webp({ quality: 88, effort: 4 }).toFile(temporaryFile)
+        } }).composite(overlays).webp({ quality: 92, effort: 4 }).toFile(temporaryFile)
         await replaceGeneratedFile(temporaryFile, outputFile)
       } finally {
         await fs.rm(temporaryFile, { force: true })
@@ -147,18 +152,35 @@ async function generatePreviews(manifestUrl) {
       z: Number(manifest.bounds.minZ) + group.groupRow * PREVIEW_GROUP_SIZE * tileSize,
       width: groupColumns * tileSize,
       height: groupRows * tileSize,
-      src: `${manifestUrl.replace(/manifest\.json$/, "")}preview-${group.key}.webp`
+      src: `${manifestUrl.replace(/manifest\.json$/, "")}${previewName}`
     })
   }
 
   const metadataFile = path.join(directory, "previews.json")
-  const metadata = `${JSON.stringify({ version: 1, tiles: previews }, null, 2)}\n`
+  const assetFiles = [path.join(directory, "overview.webp"), ...previews.map((preview) => publicFile(preview.src))]
+  const assetVersion = String(Math.round(Math.max(...await Promise.all(assetFiles.map(async (file) => (
+    await fs.stat(file).then((result) => result.mtimeMs).catch(() => 0)
+  ))))))
+  const metadata = `${JSON.stringify({ version: 2, assetVersion, tiles: previews }, null, 2)}\n`
   if (await fs.readFile(metadataFile, "utf8").catch(() => "") !== metadata) await fs.writeFile(metadataFile, metadata)
   console.log(`${manifestUrl}: ${previews.length} preview groups`)
 }
 
 const catalog = JSON.parse(await fs.readFile(publicFile("/maps/catalog.json"), "utf8"))
+const requestedWorlds = new Set()
+for (let index = 2; index < process.argv.length; index += 1) {
+  if (process.argv[index] !== "--world" || !process.argv[index + 1]) {
+    throw new Error("Usage: generate-map-overviews.mjs [--world <world-id> ...]")
+  }
+  requestedWorlds.add(process.argv[index + 1])
+  index += 1
+}
+const knownWorlds = new Set((catalog.worlds || []).map((world) => world.id))
+for (const worldId of requestedWorlds) {
+  if (!knownWorlds.has(worldId)) throw new Error(`Unknown world: ${worldId}`)
+}
 for (const world of catalog.worlds || []) {
+  if (requestedWorlds.size && !requestedWorlds.has(world.id)) continue
   for (const dimension of world.dimensions || []) {
     if (!dimension.enabled) continue
     const manifestUrl = dimension.manifestPath || world.manifestPath

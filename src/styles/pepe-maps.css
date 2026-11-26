@@ -10,7 +10,8 @@
     radial-gradient(circle at bottom right, rgba(34, 51, 26, 0.24), transparent 34%),
     #050806;
   color: #f5f5ef;
-  font-family: "Manrope", "Segoe UI", sans-serif;
+  font-family: "Onest", "Manrope", sans-serif;
+  font-size-adjust: from-font;
 }
 
 @media (min-width: 2000px) {
@@ -58,7 +59,7 @@
   background: rgba(255, 255, 255, 0.045);
   color: #f5f5ef;
   cursor: pointer;
-  font-family: "Unbounded", "Manrope", sans-serif;
+  font-family: "Onest", "Manrope", sans-serif;
   font-size: 23px;
   line-height: 1;
   transition: background 0.16s ease, transform 0.16s ease;
@@ -181,8 +182,8 @@
 
 .pepe-brand-icon {
   position: absolute;
-  top: calc(10px * var(--pepe-desktop-scale));
-  left: calc(10px * var(--pepe-desktop-scale));
+  top: calc(12px * var(--pepe-desktop-scale) - 1px);
+  left: calc(12px * var(--pepe-desktop-scale) - 1px);
   flex: 0 0 calc(56px * var(--pepe-desktop-scale));
   width: calc(56px * var(--pepe-desktop-scale));
   height: calc(56px * var(--pepe-desktop-scale));
@@ -193,8 +194,8 @@
 }
 
 .pepe-brand-icon svg {
-  width: calc(58px * var(--pepe-desktop-scale));
-  height: calc(58px * var(--pepe-desktop-scale));
+  width: 100%;
+  height: 100%;
 }
 
 .pepe-brand-copy {
@@ -254,7 +255,7 @@
 
 .pepe-brand-title {
   display: block;
-  font-family: "Unbounded", "Manrope", sans-serif;
+  font-family: "Unbounded", "Onest", sans-serif;
   font-size: 18px;
   line-height: 1.1;
 }
@@ -262,7 +263,7 @@
 .pepe-brand-meta {
   display: block;
   margin-top: 6px;
-  font-family: "Unbounded", "Manrope", sans-serif;
+  font-family: "Unbounded", "Onest", sans-serif;
   font-size: 13px;
   line-height: 1.2;
 }
@@ -271,10 +272,10 @@
   display: block;
   margin-top: 8px;
   max-width: 230px;
-  color: rgba(236, 240, 233, 0.74);
-  font-size: 11px;
-  font-weight: 300;
-  line-height: 1.25;
+  color: rgba(236, 240, 233, 0.9);
+  font-size: 0.875rem;
+  font-weight: 450;
+  line-height: 1.4;
 }
 
 .pepe-brand-note a {
@@ -305,7 +306,7 @@
   width: calc(52px * var(--pepe-desktop-scale));
   height: calc(52px * var(--pepe-desktop-scale));
   border-radius: calc(16px * var(--pepe-desktop-scale));
-  font-family: "Unbounded", "Manrope", sans-serif;
+  font-family: "Onest", "Manrope", sans-serif;
   font-size: calc(30px * var(--pepe-desktop-scale));
   line-height: 1;
   cursor: pointer;
@@ -316,70 +317,6 @@
 .pepe-icon-btn:hover,
 .pepe-chip:hover {
   transform: translateY(-1px);
-}
-
-.pepe-help-dock {
-  position: absolute;
-  top: calc(env(safe-area-inset-top, 0px) + (18px * var(--pepe-desktop-scale)));
-  right: calc(env(safe-area-inset-right, 0px) + (18px * var(--pepe-desktop-scale)));
-  z-index: 715;
-  display: grid;
-  justify-items: end;
-  gap: calc(10px * var(--pepe-desktop-scale));
-}
-
-.pepe-help-btn {
-  width: calc(58px * var(--pepe-desktop-scale));
-  height: calc(58px * var(--pepe-desktop-scale));
-  border-radius: calc(18px * var(--pepe-desktop-scale));
-  color: #ffd9e4;
-}
-
-.pepe-help-btn svg {
-  width: calc(24px * var(--pepe-desktop-scale));
-  height: calc(24px * var(--pepe-desktop-scale));
-  filter: drop-shadow(0 0 10px rgba(255, 110, 150, 0.22));
-}
-
-.pepe-help-card {
-  width: min(calc(280px * var(--pepe-desktop-scale)), calc(100vw - 36px));
-  padding: calc(14px * var(--pepe-desktop-scale)) calc(16px * var(--pepe-desktop-scale));
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: calc(18px * var(--pepe-desktop-scale));
-  background: rgba(14, 18, 15, 0.72);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.26);
-  color: #f7faf4;
-  animation: pepe-panel-in 0.22s ease;
-}
-
-.pepe-help-kicker {
-  display: block;
-  margin-bottom: calc(8px * var(--pepe-desktop-scale));
-  font-family: "Unbounded", "Manrope", sans-serif;
-  font-size: calc(16px * var(--pepe-desktop-scale));
-  line-height: 1.25;
-  color: #ffd7e3;
-}
-
-.pepe-help-card p {
-  margin: 0;
-  font-size: calc(13px * var(--pepe-desktop-scale));
-  line-height: 1.35;
-  color: rgba(245, 248, 241, 0.9);
-}
-
-.pepe-help-list {
-  margin: calc(10px * var(--pepe-desktop-scale)) 0;
-  padding-left: calc(18px * var(--pepe-desktop-scale));
-  color: #f7faf4;
-  font-size: calc(13px * var(--pepe-desktop-scale));
-  line-height: 1.45;
-}
-
-.pepe-help-list li + li {
-  margin-top: calc(4px * var(--pepe-desktop-scale));
 }
 
 .pepe-search-dock {
@@ -419,8 +356,8 @@
   outline: 0;
   background: transparent;
   color: #f8fbf4;
-  font-size: calc(18px * var(--pepe-desktop-scale));
-  font-family: "Manrope", "Segoe UI", sans-serif;
+  font-size: calc(20px * var(--pepe-desktop-scale));
+  font-family: "Onest", "Manrope", sans-serif;
 }
 
 .pepe-search-bar input::placeholder,
@@ -505,28 +442,28 @@
 }
 
 .pepe-filter-label {
-  font-family: "Unbounded", "Manrope", sans-serif;
-  font-size: 14px;
+  font-family: "Onest", "Manrope", sans-serif;
+  font-size: 15px;
   line-height: 1.1;
 }
 
-.pepe-ice-shimmer {
-  color: #d9edff;
-  background: linear-gradient(105deg, #80bfff 0%, #f7fcff 28%, #c8e7ff 50%, #fff 72%, #80bfff 100%);
+.pepe-season-shimmer {
+  color: #91efe2;
+  background: linear-gradient(105deg, #54d9d0 0%, #e8fffc 28%, #7be9dc 50%, #fff 72%, #54d9d0 100%);
   background-size: 240% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: pepe-ice-shimmer 5s ease-in-out infinite;
+  animation: pepe-season-shimmer 5s ease-in-out infinite;
 }
 
-@keyframes pepe-ice-shimmer {
+@keyframes pepe-season-shimmer {
   0%, 100% { background-position: 100% 50%; }
   50% { background-position: 0% 50%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pepe-ice-shimmer {
+  .pepe-season-shimmer {
     animation: none;
   }
 }
@@ -534,18 +471,18 @@
 .pepe-chip-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
 }
 
 .pepe-chip {
   min-height: 42px;
-  padding: 0 14px;
+  padding: 0 11px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.04);
   color: #f4f5ef;
-  font-family: "Unbounded", "Manrope", sans-serif;
-  font-size: 13px;
+  font-family: "Onest", "Manrope", sans-serif;
+  font-size: 14px;
   cursor: pointer;
   transition: transform 0.18s ease, background 0.18s ease, opacity 0.18s ease;
 }
@@ -564,7 +501,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 14px;
-  font-size: 15px;
+  font-size: 16px;
 }
 
 .pepe-switch-row input {
@@ -602,14 +539,67 @@
   transform: translateX(24px);
 }
 
-.pepe-filter-discord {
-  margin: 0;
-  color: rgba(240, 245, 237, 0.7);
-  font-size: 13px;
+.pepe-filter-contributors {
+  position: relative;
+  padding-top: 12px;
 }
 
-.pepe-filter-discord span {
-  color: #ffffff;
+.pepe-filter-contributors::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 12px;
+  right: 12px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.pepe-contributor-list {
+  display: flex;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pepe-contributor-list li {
+  position: relative;
+  width: 20px;
+  height: 20px;
+}
+
+.pepe-contributor-list img {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  image-rendering: pixelated;
+}
+
+.pepe-contributor-name {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 7px);
+  z-index: 1;
+  padding: 6px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(14, 18, 15, 0.92);
+  color: #fff;
+  font-size: 12px;
+  line-height: 1;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate(-50%, 4px);
+  transition: opacity 0.16s ease, transform 0.16s ease, visibility 0.16s ease;
+}
+
+.pepe-contributor-list li:hover .pepe-contributor-name {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
 }
 
 .pepe-search-results {
@@ -618,7 +608,7 @@
 }
 
 .pepe-search-results-head {
-  font-family: "Unbounded", "Manrope", sans-serif;
+  font-family: "Onest", "Manrope", sans-serif;
   font-size: 16px;
   margin-bottom: 12px;
 }
@@ -639,7 +629,7 @@
   color: #f8fbf4;
   text-align: left;
   cursor: pointer;
-  font-family: "Unbounded", "Manrope", sans-serif;
+  font-family: "Onest", "Manrope", sans-serif;
 }
 
 .pepe-search-result small {
@@ -661,6 +651,38 @@
   max-width: min(360px, calc(100vw - 36px));
   padding: 16px 18px;
   border-radius: 18px;
+}
+
+.pepe-status-card.is-error {
+  position: fixed;
+  inset: 50% auto auto 50%;
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  width: min(420px, calc(100dvw - 32px));
+  max-width: none;
+  padding: 24px;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.pepe-status-retry {
+  min-height: 42px;
+  padding: 8px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #f5f5ef;
+  cursor: pointer;
+}
+
+.pepe-status-retry:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.pepe-status-retry:focus-visible {
+  outline: 2px solid #9de8dc;
+  outline-offset: 3px;
 }
 
 .pepe-copy-toast {
@@ -815,7 +837,7 @@
   overflow-wrap: break-word;
   width: auto;
   max-width: 100%;
-  font-family: "Unbounded", "Manrope", sans-serif;
+  font-family: "Onest", "Manrope", sans-serif;
   font-size: 13px;
   line-height: 1.1;
   color: #f4f5ef;
@@ -864,7 +886,7 @@
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.14);
   color: #f7f8f2;
-  font-family: "Unbounded", "Manrope", sans-serif;
+  font-family: "Onest", "Manrope", sans-serif;
   font-size: 11px;
   line-height: 1;
   flex: 0 0 auto;
@@ -903,8 +925,8 @@
   }
 
   .pepe-brand-icon {
-    top: 8px;
-    left: 8px;
+    top: 7px;
+    left: 7px;
   }
 
   .pepe-brand-copy {
@@ -924,8 +946,8 @@
 
   .pepe-brand-note {
     margin-top: 6px;
-    font-size: 10px;
-    line-height: 1.2;
+    font-size: 0.8125rem;
+    line-height: 1.4;
   }
 
   .pepe-brand-icon {
@@ -935,8 +957,8 @@
   }
 
   .pepe-brand-icon svg {
-    width: 46px;
-    height: 46px;
+    width: 100%;
+    height: 100%;
   }
 
   .pepe-search-dock {
@@ -951,35 +973,6 @@
 
     top: calc(env(safe-area-inset-top, 0px) + 12px);
     left: calc(env(safe-area-inset-left, 0px) + 12px);
-  }
-
-  .pepe-help-dock {
-    top: calc(env(safe-area-inset-top, 0px) + 12px);
-    right: calc(env(safe-area-inset-right, 0px) + 12px);
-    gap: 8px;
-  }
-
-  .pepe-help-btn {
-    width: 52px;
-    height: 52px;
-    border-radius: 16px;
-  }
-
-  .pepe-help-btn svg {
-    width: 22px;
-    height: 22px;
-  }
-
-  .pepe-help-card {
-    width: min(280px, calc(100vw - 24px));
-    padding: 12px 14px;
-    border-radius: 16px;
-  }
-
-  .pepe-help-kicker,
-  .pepe-help-card p,
-  .pepe-help-list {
-    font-size: 12px;
   }
 
   .pepe-zoom-controls {
@@ -1009,7 +1002,7 @@
 
   .pepe-search-bar input,
   .pepe-filter-search input {
-    font-size: 16px;
+    font-size: 17px;
   }
 
   .pepe-icon-btn {
