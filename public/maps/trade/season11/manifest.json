@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-11-26T14:04:45.562Z",
+  "generatedAt": "2026-11-26T19:05:39.951Z",
   "tileSize": 1024,
   "baseImage": "",
   "bounds": {
@@ -53,9 +53,9 @@
       "id": "1_1",
       "x": -512,
       "z": -512,
-      "src": "/maps/trade/season11/tiles/overworld/1_1_x-512_z-512.png",
+      "src": "/maps/trade/season11/tiles/overworld/1_1_x-512_z-512-fix1.png",
       "srcWebp": "",
-      "srcPng": "/maps/trade/season11/tiles/overworld/1_1_x-512_z-512.png"
+      "srcPng": "/maps/trade/season11/tiles/overworld/1_1_x-512_z-512-fix1.png"
     },
     {
       "id": "1_2",
