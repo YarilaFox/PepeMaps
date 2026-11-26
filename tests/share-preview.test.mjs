@@ -79,6 +79,7 @@ test("HTML exposes Discord JSON and rectangular image before browser redirect", 
   assert.equal(embed.component.type, 17)
   assert.match(embed.component.components[0].content, /^### \[PepeMaps/)
   assert.equal(embed.component.components[1].items[0].media.url.includes("x=128&z=-640"), true)
+  assert.match(embed.component.components[1].items[0].media.url, /v=2026-10-05T12%3A00%3A00Z-2/)
   assert.match(embed.component.components[0].content, /PepeLand/)
   assert.match(embed.component.components[2].content, /YarilaFox/)
   assert.match(html, /og:image:width" content="1200"/)
@@ -107,6 +108,37 @@ test("tile crop fills the full non-square JPEG", async () => {
     assert.equal(info.height, 630)
     const lastPixel = data.subarray((info.width * info.height - 1) * info.channels)
     assert.ok(lastPixel[0] > 190 && lastPixel[1] < 40 && lastPixel[2] < 40)
+  } finally {
+    globalThis.fetch = previousFetch
+  }
+})
+
+test("season 11 share image loads tiles from its versioned map directory", async () => {
+  const tile = await sharp({
+    create: { width: 1024, height: 1024, channels: 3, background: "#e00000" }
+  }).png().toBuffer()
+  const previousFetch = globalThis.fetch
+  const expectedPath = "https://maps.foxes.my/maps/build_1/season11/tiles/overworld/0_0_x0_z0.png"
+  const fetched = []
+  globalThis.fetch = async (url) => {
+    fetched.push(String(url))
+    if (String(url) !== expectedPath) return new Response("Not found", { status: 404 })
+    return new Response(tile, { headers: { "content-type": "image/png" } })
+  }
+
+  try {
+    const image = await renderShareImage({
+      worldId: "build_1", dimensionId: "overworld", x: 100, z: 100,
+      assetOrigin: "https://maps.foxes.my",
+      manifest: {
+        tileSize: 1024,
+        bounds: { minX: 0, minZ: 0, width: 1024, height: 1024 },
+        tiles: [{ x: 0, z: 0, src: "/maps/build_1/season11/tiles/overworld/0_0_x0_z0.png" }]
+      }
+    })
+    const pixel = await sharp(image).extract({ left: 600, top: 315, width: 1, height: 1 }).raw().toBuffer()
+    assert.deepEqual(fetched, [expectedPath])
+    assert.ok(pixel[0] > 190 && pixel[1] < 40 && pixel[2] < 40)
   } finally {
     globalThis.fetch = previousFetch
   }

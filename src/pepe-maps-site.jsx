@@ -1,6 +1,7 @@
 ﻿import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import L from "leaflet"
 import "leaflet/dist/leaflet.css"
+import { getShareVersion } from "../lib/share-version.js"
 import { getMapImageModes } from "./map-lod.js"
 
 const SEARCH_RESULTS_LIMIT = 8
@@ -1441,7 +1442,7 @@ export default function PepeMapsSite() {
     const { x, z, worldId, dimensionId } = mapActionMenu
     const value = action === "command"
       ? createTeleportCommand(dimensionId, x, z)
-      : createMapShareUrl(window.location.origin, worldId, dimensionId, x, z, manifest?.generatedAt)
+      : createMapShareUrl(window.location.origin, worldId, dimensionId, x, z, getShareVersion(manifest))
 
     try {
       await copyTextToClipboard(value)
