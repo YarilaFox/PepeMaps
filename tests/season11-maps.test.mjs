@@ -67,7 +67,7 @@ test("only MP1 and trade are available in season 11", () => {
 })
 
 test("contributor heads are local images", async () => {
-  assert.deepEqual(catalog.contributors.map((contributor) => contributor.name), ["YarilaFox", "Bratik17078"])
+  assert.deepEqual(catalog.contributors.map((contributor) => contributor.name), ["YarilaFox", "Bratik17078", "haaampter", "green_and_white"])
   for (const contributor of catalog.contributors) {
     const metadata = await sharp(path.join(publicDir, contributor.avatar.slice(1))).metadata()
     assert.equal(metadata.width, 128)

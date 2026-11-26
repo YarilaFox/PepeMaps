@@ -6,7 +6,9 @@
   "defaultDimensionId": "overworld",
   "contributors": [
     { "name": "YarilaFox", "avatar": "/contributors/yarilafox.png" },
-    { "name": "Bratik17078", "avatar": "/contributors/bratik17078.png" }
+    { "name": "Bratik17078", "avatar": "/contributors/bratik17078.png" },
+    { "name": "haaampter", "avatar": "/contributors/haaampter.png" },
+    { "name": "green_and_white", "avatar": "/contributors/green_and_white.png" }
   ],
   "worlds": [
     {
