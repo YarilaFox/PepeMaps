@@ -568,7 +568,7 @@
   height: 20px;
 }
 
-.pepe-contributor-list img {
+.pepe-contributor-list li > img {
   display: block;
   width: 20px;
   height: 20px;
@@ -578,6 +578,9 @@
 
 .pepe-contributor-name {
   position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 5px;
   left: 50%;
   bottom: calc(100% + 7px);
   z-index: 1;
@@ -594,6 +597,16 @@
   pointer-events: none;
   transform: translate(-50%, 4px);
   transition: opacity 0.16s ease, transform 0.16s ease, visibility 0.16s ease;
+}
+
+.pepe-contributor-badge {
+  flex: none;
+  width: 14px;
+  height: 14px;
+}
+
+.pepe-contributor-badge.is-crown {
+  color: hsl(39.81 97.235% 57.451%);
 }
 
 .pepe-contributor-list li:hover .pepe-contributor-name {
@@ -824,9 +837,14 @@
   flex-shrink: 0;
 }
 
-.pepe-map-marker-icon svg {
+.pepe-map-marker-icon svg,
+.pepe-map-marker-icon img {
   width: 18px;
   height: 18px;
+}
+
+.pepe-map-marker-icon img {
+  object-fit: contain;
 }
 
 .pepe-map-marker-name {

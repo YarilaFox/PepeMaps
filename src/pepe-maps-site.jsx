@@ -3,6 +3,7 @@ import L from "leaflet"
 import "leaflet/dist/leaflet.css"
 import { getShareVersion } from "../lib/share-version.js"
 import { getMapImageModes } from "./map-lod.js"
+import { getMarkerIconSource } from "./marker-icon.js"
 
 const SEARCH_RESULTS_LIMIT = 8
 const TILE_VIEW_PADDING_PX = 128
@@ -11,6 +12,7 @@ const MAX_PREVIEW_REQUESTS = 2
 const MARKER_VIEW_PADDING_PX = 160
 const MAP_VIEW_COOKIE_NAME = "pepe_maps_view"
 const MAP_VIEW_COOKIE_MAX_AGE = 60 * 60 * 24 * 30
+const MAP_PIN_PATH = "M8 1.5a4.5 4.5 0 0 1 4.5 4.5c0 2.92-2.35 5.56-3.82 6.98a.96.96 0 0 1-1.36 0C5.85 11.56 3.5 8.92 3.5 6A4.5 4.5 0 0 1 8 1.5m0 2A2.5 2.5 0 1 0 8 8.5 2.5 2.5 0 0 0 8 3.5"
 const DEFAULT_CATALOG = {
   season: "11",
   defaultWorldId: "build_1",
@@ -362,7 +364,28 @@ function getMarkerGlyph(type) {
     case "farm":
       return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10.975V8a2 2 0 0 0-2-2h-6V4.688c.305-.274.5-.668.5-1.11a1.5 1.5 0 0 0-3 0c0 .442.195.836.5 1.11V6H5a2 2 0 0 0-2 2v2.998l-.072.005A1 1 0 0 0 2 12v2a1 1 0 0 0 1 1v5a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5a1 1 0 0 0 1-1v-1.938a1 1 0 0 0-.072-.455c-.202-.488-.635-.605-.928-.632M7 12c0-1.104.672-2 1.5-2s1.5.896 1.5 2-.672 2-1.5 2S7 13.104 7 12m8.998 6c-1.001-.003-7.997 0-7.998 0v-2s7.001-.002 8.002 0zm-.498-4c-.828 0-1.5-.896-1.5-2s.672-2 1.5-2 1.5.896 1.5 2-.672 2-1.5 2" fill="currentColor"/></svg>'
     default:
-      return '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5a4.5 4.5 0 0 1 4.5 4.5c0 2.92-2.35 5.56-3.82 6.98a.96.96 0 0 1-1.36 0C5.85 11.56 3.5 8.92 3.5 6A4.5 4.5 0 0 1 8 1.5m0 2A2.5 2.5 0 1 0 8 8.5 2.5 2.5 0 0 0 8 3.5" fill="currentColor"/></svg>'
+      return `<svg viewBox="0 0 16 16" aria-hidden="true"><path d="${MAP_PIN_PATH}" fill="currentColor"/></svg>`
+  }
+}
+
+function ContributorBadge({ badge }) {
+  switch (badge) {
+    case "crown":
+      return (
+        <svg className="pepe-contributor-badge is-crown" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M5 18a1 1 0 0 0-1 1 3 3 0 0 0 3 3h10a3 3 0 0 0 3-3 1 1 0 0 0-1-1H5ZM3.04 7.76a1 1 0 0 0-1.52 1.15l2.25 6.42a1 1 0 0 0 .94.67h14.55a1 1 0 0 0 .95-.71l1.94-6.45a1 1 0 0 0-1.55-1.1l-4.11 3-3.55-5.33.82-.82a.83.83 0 0 0 0-1.18l-1.17-1.17a.83.83 0 0 0-1.18 0l-1.17 1.17a.83.83 0 0 0 0 1.18l.82.82-3.61 5.42-4.41-3.07Z" />
+        </svg>
+      )
+    case "pepemaps":
+      return <img className="pepe-contributor-badge" src="/pepe-brand-icon.svg" alt="" width="14" height="14" />
+    case "marker":
+      return (
+        <svg className="pepe-contributor-badge" viewBox="0 0 16 16" aria-hidden="true">
+          <path d={MAP_PIN_PATH} fill="currentColor" />
+        </svg>
+      )
+    default:
+      return null
   }
 }
 
@@ -388,28 +411,11 @@ function getMarkerAccent(marker) {
   }
 }
 
-function renderCustomMarkerIcon(iconValue) {
-  const icon = readString(iconValue)
-  if (!icon) {
-    return ""
-  }
-
-  if (icon.startsWith("<svg")) {
-    return icon
-  }
-
-  if (icon.startsWith("<path")) {
-    return `<svg viewBox="0 0 16 16" aria-hidden="true">${icon}</svg>`
-  }
-
-  return `<svg viewBox="0 0 16 16" aria-hidden="true"><path d="${escapeHtml(icon)}" fill="currentColor"/></svg>`
-}
-
 function createMarkerIcon(marker) {
   const name = escapeHtml(marker.name)
-  const customIcon = renderCustomMarkerIcon(marker.icon)
-  const glyph = customIcon || getMarkerGlyph(marker.type)
   const accent = escapeHtml(getMarkerAccent(marker))
+  const customIcon = getMarkerIconSource(marker.icon, accent)
+  const glyph = customIcon ? `<img src="${customIcon}" alt="" width="18" height="18">` : getMarkerGlyph(marker.type)
   return L.divIcon({
     className: "pepe-map-marker-host",
     html: `
@@ -1799,7 +1805,10 @@ export default function PepeMapsSite() {
                   {catalog.contributors.map((contributor) => (
                     <li key={contributor.name}>
                       <img src={contributor.avatar} alt={contributor.name} width="20" height="20" />
-                      <span className="pepe-contributor-name" aria-hidden="true">{contributor.name}</span>
+                      <span className="pepe-contributor-name" aria-hidden="true">
+                        <ContributorBadge badge={contributor.badge} />
+                        {contributor.name}
+                      </span>
                     </li>
                   ))}
                 </ul>
