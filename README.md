@@ -27,7 +27,7 @@ Open the address printed by Vite. `npm test` runs the data and share-preview che
 - `scripts/`: manifest and overview generators.
 
 Raster tile URLs are taken from manifests. Keep the coordinate system and tile size consistent when replacing a map.
-Season 11 overworld exports for MP1 and TZ live in `public/maps/build_1/season11/` and `public/maps/trade/season11/`. Earlier assets remain untouched. Nether and End entries are disabled in the catalog until new exports are available.
+Season 11 overworld exports for MP1, MP2, and TZ live in the `season11/` directories of their respective worlds under `public/maps/`. Earlier assets remain untouched. Nether and End entries are disabled in the catalog until new exports are available.
 
 ## Map data and generation
 
