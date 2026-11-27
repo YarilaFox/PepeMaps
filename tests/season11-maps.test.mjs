@@ -10,12 +10,17 @@ const catalog = JSON.parse(await readFile(path.join(publicDir, "maps/catalog.jso
 
 for (const [worldId, tileCount, minX, minZ, size] of [
   ["build_1", 16, -2048, -2048, 4096],
+  ["build_2", 25, -2560, -2560, 5120],
   ["trade", 9, -1536, -1536, 3072]
 ]) {
   test(`${worldId} season 11 overworld has complete, full-resolution tiles`, async () => {
     const world = catalog.worlds.find((item) => item.id === worldId)
     assert.ok(world)
     assert.equal(world.manifestPath, `/maps/${worldId}/season11/manifest.json`)
+    assert.equal(world.markersPath, `/maps/${worldId}/season11/markers.json`)
+    const markers = JSON.parse(await readFile(path.join(publicDir, world.markersPath.slice(1)), "utf8"))
+    assert.equal(markers.world, worldId)
+    assert.ok(Array.isArray(markers.items))
     const manifest = JSON.parse(await readFile(path.join(publicDir, world.manifestPath.slice(1)), "utf8"))
     assert.equal(manifest.tiles.length, tileCount)
     assert.deepEqual(manifest.bounds, { minX, minZ, width: size, height: size })
@@ -91,17 +96,17 @@ test("Nether and End are unavailable in every world", () => {
   }
 })
 
-test("only MP1 and trade are available in season 11", () => {
+test("only MP1, MP2, and trade are available in season 11", () => {
   assert.equal(catalog.defaultWorldId, "build_1")
   assert.deepEqual(
     catalog.worlds.filter((world) => world.status === "active").map((world) => world.id),
-    ["build_1", "trade"]
+    ["build_1", "build_2", "trade"]
   )
   assert.ok(catalog.worlds.every((world) => world.dimensions.every((dimension) => dimension.id !== "pale")))
 })
 
 test("contributor heads are local images", async () => {
-  assert.deepEqual(catalog.contributors.map((contributor) => contributor.name), ["YarilaFox", "Bratik17078", "haaampter", "green_and_white"])
+  assert.deepEqual(catalog.contributors.map((contributor) => contributor.name), ["YarilaFox", "Bratik17078", "haaampter", "green_and_white", "NullOoOoOor"])
   for (const contributor of catalog.contributors) {
     const metadata = await sharp(path.join(publicDir, contributor.avatar.slice(1))).metadata()
     assert.equal(metadata.width, 128)
@@ -114,6 +119,7 @@ test("contributor badges match the requested roles", () => {
     ["YarilaFox", "crown"],
     ["Bratik17078", "pepemaps"],
     ["haaampter", "marker"],
-    ["green_and_white", "pepemaps"]
+    ["green_and_white", "pepemaps"],
+    ["NullOoOoOor", undefined]
   ])
 })

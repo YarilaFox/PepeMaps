@@ -1,6 +1,11 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
+  "git": {
+    "deploymentEnabled": {
+      "codex/season11-mp2": false
+    }
+  },
   "rewrites": [
     { "source": "/api/share-image", "destination": "/api/share?mode=image" },
     { "source": "/s/:world/:dimension/:x/:z", "destination": "/api/share" },

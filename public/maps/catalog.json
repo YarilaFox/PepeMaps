@@ -8,7 +8,8 @@
     { "name": "YarilaFox", "avatar": "/contributors/yarilafox.png", "badge": "crown" },
     { "name": "Bratik17078", "avatar": "/contributors/bratik17078.png", "badge": "pepemaps" },
     { "name": "haaampter", "avatar": "/contributors/haaampter.png", "badge": "marker" },
-    { "name": "green_and_white", "avatar": "/contributors/green_and_white.png", "badge": "pepemaps" }
+    { "name": "green_and_white", "avatar": "/contributors/green_and_white.png", "badge": "pepemaps" },
+    { "name": "NullOoOoOor", "avatar": "/contributors/nulloooooor.png" }
   ],
   "worlds": [
     {
@@ -28,9 +29,9 @@
       "id": "build_2",
       "label": "МП2",
       "shortLabel": "МП2",
-      "status": "unavailable",
-      "manifestPath": "/maps/build_2/manifest.json",
-      "markersPath": "/maps/build_2/markers.json",
+      "status": "active",
+      "manifestPath": "/maps/build_2/season11/manifest.json",
+      "markersPath": "/maps/build_2/season11/markers.json",
       "dimensions": [
         { "id": "overworld", "label": "Верхний", "enabled": true },
         { "id": "nether", "label": "Ад", "enabled": false, "manifestPath": "/maps/build_2/tiles/nether/manifest.json" },
